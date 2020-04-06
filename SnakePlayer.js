@@ -70,12 +70,7 @@ const SnakePlayer = (function () {
             },
 
             isCollidedItSelf: function (snakeHead, snake) {
-                for (let i = 0; i < snake.length; i++) {
-                    if (this.isHit(snake[i], snakeHead)) {
-                        return true;
-                    }
-                }
-                return false;
+                return snake.some( snakeBody => this.isHit(snakeBody, snakeHead));
             },
 
             isOffGround: function (snakeHead, ground) {
@@ -120,10 +115,10 @@ const SnakePlayer = (function () {
 
             render: function (ctx) {
                 const snake = this.snake;
-                for (let i = 0; i < snake.length; i++) {
+                snake.forEach( (snakeBody, i) => {
                     ctx.fillStyle = i === 0 ? 'green' : 'black';
-                    ctx.fillRect(snake[i].x, snake[i].y, this.size, this.size);
-                }
+                    ctx.fillRect(snakeBody.x, snakeBody.y, this.size, this.size);
+                })
             }
         }
     }
